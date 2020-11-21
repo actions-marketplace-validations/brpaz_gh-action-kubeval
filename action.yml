@@ -1,5 +1,5 @@
 name: "Kubeval Action"
-description: "Runs Kubeval and optionally posts results as GitHub Checks"
+description: "Runs Kubeval and posts results as GitHub Checks"
 author: "Bruno Paz"
 branding:
   icon: "check"
