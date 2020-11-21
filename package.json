@@ -1,43 +1,61 @@
 {
-  "name": "container-toolkit-template",
+  "name": "gh-action-kubeval",
   "version": "0.0.0",
-  "description": "Container template action using actions/toolkit",
+  "description": "GitHub Action than runs Kubeval and post the results as GitHub Checks",
   "main": "lib/main.js",
   "scripts": {
+    "build:docker": "docker build -t gh-kubeval-action:dev .",
+    "format": "prettier --write src/**/*.ts",
+    "lint": "eslint 'src/**/*.{js,ts}'",
+    "lint:fix": "eslint 'src/**/*.{js,ts}' --quiet --fix",
+    "test": "jest",
     "build": "tsc",
-    "format": "prettier --write **/*.ts",
-    "test": "jest"
+    "watch": "tsc --watch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/container-toolkit-template.git"
+    "url": "git+https://github.com/brpaz/gh-action-kubeval.git"
   },
   "keywords": [
     "actions",
-    "container",
-    "toolkit",
-    "setup"
+    "kubeval"
   ],
-  "author": "GitHub",
-  "license": "ISC",
+  "author": "Bruno Paz <oss@brunopaz.dev>",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/actions/container-toolkit-template/issues"
+    "url": "https://github.com/brpaz/gh-action-kubeval/issues"
   },
-  "homepage": "https://github.com/actions/container-toolkit-template#readme",
+  "homepage": "https://github.com/brpaz/gh-action-kubeval#readme",
   "dependencies": {
-    "@actions/core": "^1.0.0",
-    "@actions/io": "^1.0.0",
-    "@actions/exec": "^1.0.0",
-    "@actions/github": "^1.0.0",
-    "@actions/tool-cache": "^1.0.0"
+    "@actions/core": "^1.2.6",
+    "@actions/exec": "1.0.4",
+    "@actions/github": "^4.0.0"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
-    "jest": "^24.8.0",
-    "jest-circus": "^24.7.1",
-    "prettier": "^1.17.1",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1"
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.7",
+    "@typescript-eslint/eslint-plugin": "^4.8.1",
+    "@typescript-eslint/parser": "^4.8.1",
+    "eslint": "^7.14.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
+    "jest": "^26.6.3",
+    "jest-circus": "^26.6.3",
+    "lint-staged": "^10.5.1",
+    "nock": "^13.0.5",
+    "prettier": "^2.2.0",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.0.5"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn build && lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts}": [
+      "yarn lint"
+    ]
   }
 }
